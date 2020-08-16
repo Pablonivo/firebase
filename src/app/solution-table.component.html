@@ -1,0 +1,46 @@
+<mat-table [dataSource]="projectEulerProblems | async">
+    <ng-container matColumnDef="problemId">
+      <mat-header-cell *matHeaderCellDef> Problem id </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.problemId}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="compute">
+      <mat-header-cell *matHeaderCellDef> Compute </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+        <button mat-button> Compute </button>  
+      </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="solution">
+      <mat-header-cell *matHeaderCellDef> Solution </mat-header-cell>
+      <mat-cell *matCellDef="let row"> TODO: ShowSolutionOverHere </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="numberOfTimesComputed">
+      <mat-header-cell *matHeaderCellDef> Times computed </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numberOfTimesComputed}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="fastestComputationTimeInMs">
+      <mat-header-cell *matHeaderCellDef> Fastest (ms) </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fastestComputationTimeInMs}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="slowestComputationTimeInMs">
+      <mat-header-cell *matHeaderCellDef> Slowest (ms) </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.slowestComputationTimeInMs}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="lastComputationTimeInMs">
+      <mat-header-cell *matHeaderCellDef> Last (ms) </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.lastComputationTimeInMs}} </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="['problemId', 'title', 'compute', 'solution', 'numberOfTimesComputed', 'fastestComputationTimeInMs', 'slowestComputationTimeInMs', 'lastComputationTimeInMs']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['problemId', 'title', 'compute', 'solution', 'numberOfTimesComputed', 'fastestComputationTimeInMs', 'slowestComputationTimeInMs', 'lastComputationTimeInMs']"></mat-row>
+  </mat-table>
