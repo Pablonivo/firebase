@@ -5,7 +5,8 @@ import { ProjectEulerProblem } from '../project-euler-problem';
 
 @Component({
   selector: 'solution-table',
-  templateUrl: './solution-table.component.html'
+  templateUrl: './solution-table.component.html',
+  styleUrls: ['./solution-table.component.css']
 })
 export class SolutionTableComponent {
   projectEulerProblems: ProjectEulerProblem[] = [];

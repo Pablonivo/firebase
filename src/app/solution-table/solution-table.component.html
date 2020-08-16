@@ -9,8 +9,8 @@
     </ng-container>
   
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Title </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.title}} </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="compute">
@@ -31,13 +31,13 @@
     </ng-container>
     
     <ng-container matColumnDef="fastestComputationTimeInMs">
-      <mat-header-cell *matHeaderCellDef> Fastest (ms) </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.fastestComputationTimeInMs}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Fastest (ms) </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.fastestComputationTimeInMs}} </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="slowestComputationTimeInMs">
-      <mat-header-cell *matHeaderCellDef> Slowest (ms) </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.slowestComputationTimeInMs}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Slowest (ms) </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.slowestComputationTimeInMs}} </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="lastComputationTimeInMs">
