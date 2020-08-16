@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { ProjectEulerSolutionHelper } from './project-euler-solution-helper';
 
-export class ProjectEulerManger {
+@Injectable()
+export class ProjectEulerManager {
     _startTime: number;
     _endTime: number;
     _numberOfMillisecondsUsedForLastComputation: number;

@@ -1,3 +1,6 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
 export class ProjectEulerSolutionHelper {
     getSolutionOfProblem(problemId: number): number {
         switch (problemId) {

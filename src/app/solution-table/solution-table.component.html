@@ -18,7 +18,7 @@
   
     <ng-container matColumnDef="solution">
       <mat-header-cell *matHeaderCellDef> Solution </mat-header-cell>
-      <mat-cell *matCellDef="let row"> TODO: ShowSolutionOverHere </mat-cell>
+      <mat-cell *matCellDef="let row"> {{_solutionIfComputedLocallyNullOtherwise(row.problemId)}} </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="numberOfTimesComputed">
