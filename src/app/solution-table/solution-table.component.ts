@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ProjectEulerProblem } from '../project-euler-problem';
 import { ProjectEulerManager } from '../project-euler-manager';
+import { ProjectEulerProblem } from '../project-euler-problem';
 
 @Component({
   selector: 'solution-table',
@@ -13,20 +13,27 @@ export class SolutionTableComponent {
   
   constructor(
     private readonly firestore: AngularFirestore,
-    private readonly projectEulerManager: ProjectEulerManager
-  ) {
+    private readonly projectEulerManager: ProjectEulerManager) 
+  {
     firestore.collection<ProjectEulerProblem>('project-euler-problems').valueChanges().subscribe(
       result => this.projectEulerProblems = result);
   }
 
   onCompute(problemId: number): void {
     let problemToBeUpdated = this._projectEulerProblemToBeUpdated(problemId);
-    this.localSolutions.set(problemId, this.projectEulerManager.getSolutionOfProjectEulerProblemById(problemId));
+    let solutionToProblem = this.projectEulerManager.getSolutionOfProjectEulerProblemById(problemId);
+    this.localSolutions.set(problemId, solutionToProblem);
+
+    let compututationTimeInMsForLastComputation = this.projectEulerManager._numberOfMillisecondsUsedForLastComputation
 
     this.firestore.collection<ProjectEulerProblem>('project-euler-problems')
       .doc<ProjectEulerProblem>(`${problemId}`)
-      .update({numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1});
-    // TODO: Update fastest/slowest/last
+      .update({
+        numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1,
+        fastestComputationTimeInMs: Math.min(compututationTimeInMsForLastComputation, problemToBeUpdated.fastestComputationTimeInMs),
+        slowestComputationTimeInMs: Math.max(compututationTimeInMsForLastComputation, problemToBeUpdated.slowestComputationTimeInMs),
+        lastComputationTimeInMs: compututationTimeInMsForLastComputation
+      });
   }
 
   _solutionIfComputedLocallyNullOtherwise(problemId: number): number | null {
