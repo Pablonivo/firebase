@@ -1,24 +1,29 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { ProjectEulerProblem } from '../project-euler-problem';
 
 @Component({
   selector: 'solution-table',
   templateUrl: './solution-table.component.html'
 })
 export class SolutionTableComponent {
-  projectEulerProblems: Observable<ProjectEulerProblem[]>;
+  projectEulerProblems: ProjectEulerProblem[] = [];
   
-  constructor(firestore: AngularFirestore) {
-    this.projectEulerProblems = firestore.collection<ProjectEulerProblem>('project-euler-problems').valueChanges();
+  constructor(private readonly firestore: AngularFirestore) {
+    firestore.collection<ProjectEulerProblem>('project-euler-problems').valueChanges().subscribe(
+      result => this.projectEulerProblems = result);
   }
-}
 
-export class ProjectEulerProblem {
-  problemId: number;
-  title: string;
-  numberOfTimesComputed: number;
-  fastestComputationTimeInMs: number;
-  slowestComputationTimeInMs: number;
-  lastComputationTimeInMs: number;
+  onCompute(problemId: number): void {
+    let problemToBeUpdated = this._projectEulerProblemToBeUpdated(problemId);
+
+    this.firestore.collection<ProjectEulerProblem>('project-euler-problems')
+      .doc<ProjectEulerProblem>(`${problemId}`)
+      .update({numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1});
+    // TODO: Update fastest/slowest/last
+  }
+
+  private _projectEulerProblemToBeUpdated(problemId: number): ProjectEulerProblem {
+    return this.projectEulerProblems.find(problem => problem.problemId === problemId);
+  }
 }
