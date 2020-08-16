@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "first-project-ivo": {
+      "hosting": {
+        "AngularFireDemo": [
+          "first-project-ivo"
+        ]
+      }
+    }
+  }
+}

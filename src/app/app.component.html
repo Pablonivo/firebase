@@ -338,6 +338,12 @@
 
   </div>
 
+  <ul> HIER KOMT EEN ITEM LIST
+    <li class="text" *ngFor="let item of items | async">
+      {{item.name}}
+    </li>
+  </ul>
+
   <!-- Resources -->
   <h2>Resources</h2>
   <p>Here are some links to help you get started:</p>
