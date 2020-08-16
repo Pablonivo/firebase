@@ -1,6 +1,6 @@
 <mat-table [dataSource]="projectEulerProblems" class="mat-elevation-z8">
     <ng-container matColumnDef="problemId">
-      <mat-header-cell *matHeaderCellDef> Problem id </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
       <mat-cell *matCellDef="let row"> 
         <a target="_blank" rel="noopener" href="https://projecteuler.net/problem={{row.problemId}}">
           {{row.problemId}}
@@ -16,7 +16,7 @@
     <ng-container matColumnDef="compute">
       <mat-header-cell *matHeaderCellDef> Compute </mat-header-cell>
       <mat-cell *matCellDef="let row"> 
-        <button mat-button (click)="onCompute(row.problemId)"> Compute </button>  
+        <button mat-button class="compute-button" (click)="onCompute(row.problemId)"> Click me</button>  
       </mat-cell>
     </ng-container>
   
