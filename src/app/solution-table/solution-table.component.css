@@ -16,6 +16,25 @@ mat-cell, mat-header-cell{
     border: 1px solid black;
 }
 
+.mat-column-problemId {
+    flex: none;
+    width: 30px;
+}
+
+.mat-header-cell {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+  
+.mat-cell {
+    text-align: center;
+    justify-content:center;
+}
+
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    padding-left: 0px;
+}
 
 @media only screen and (max-width: 900px) {
     .dont-show-on-mobile{
