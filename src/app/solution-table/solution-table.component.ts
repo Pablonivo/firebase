@@ -16,7 +16,7 @@ export class SolutionTableComponent {
     private readonly firestore: AngularFirestore,
     private readonly projectEulerManager: ProjectEulerManager) 
   {
-    firestore.collection<ProjectEulerProblem>('project-euler-problems').valueChanges().subscribe(
+    firestore.collection<ProjectEulerProblem>('project-euler-problems', ref => ref.orderBy('problemId')).valueChanges().subscribe(
       result => this.projectEulerProblems = result);
   }
 

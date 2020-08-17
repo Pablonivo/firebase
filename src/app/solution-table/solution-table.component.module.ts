@@ -4,9 +4,11 @@ import { AngularFireModule } from '@angular/fire';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
+import { MathHelper } from '../math-helper';
 import { ProjectEulerManager } from '../project-euler-manager';
-import { SolutionTableComponent } from './solution-table.component';
+import { ProjectEulerSolutionComputer } from '../project-euler-solution-computer';
 import { ProjectEulerSolutionHelper } from '../project-euler-solution-helper';
+import { SolutionTableComponent } from './solution-table.component';
 
 @NgModule({
     imports: [
@@ -17,7 +19,12 @@ import { ProjectEulerSolutionHelper } from '../project-euler-solution-helper';
     ],
     exports: [SolutionTableComponent],
     declarations: [SolutionTableComponent],
-    providers: [ProjectEulerManager, ProjectEulerSolutionHelper],
+    providers: [
+        ProjectEulerManager, 
+        ProjectEulerSolutionHelper, 
+        ProjectEulerSolutionComputer,
+        MathHelper
+    ],
 })
 
 export class SolutionTableModule {
