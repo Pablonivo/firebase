@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProjectEulerManager } from '../project-euler-manager';
 import { ProjectEulerProblem } from '../project-euler-problem';
@@ -8,25 +8,27 @@ import { ProjectEulerProblem } from '../project-euler-problem';
   templateUrl: './solution-table.component.html',
   styleUrls: ['./solution-table.component.css']
 })
-export class SolutionTableComponent {
+export class SolutionTableComponent implements OnInit {
   projectEulerProblems: ProjectEulerProblem[] = [];
   displayedColumns: string[] = [
-    'problemId', 
-    'title', 
-    'compute', 
-    'solution', 
-    'numberOfTimesComputed', 
-    'fastestComputationTimeInMs', 
-    'slowestComputationTimeInMs', 
+    'problemId',
+    'title',
+    'compute',
+    'solution',
+    'numberOfTimesComputed',
+    'fastestComputationTimeInMs',
+    'slowestComputationTimeInMs',
     'lastComputationTimeInMs'
   ]
   localSolutions: Map<number, number> = new Map<number, number>();
-  
+
   constructor(
     private readonly firestore: AngularFirestore,
-    private readonly projectEulerManager: ProjectEulerManager) 
-  {
-    firestore.collection<ProjectEulerProblem>('project-euler-problems', ref => ref.orderBy('problemId')).valueChanges().subscribe(
+    private readonly projectEulerManager: ProjectEulerManager) {
+  }
+
+  ngOnInit(): void {
+    this.firestore.collection<ProjectEulerProblem>('project-euler-problems', ref => ref.orderBy('problemId')).valueChanges().subscribe(
       result => this.projectEulerProblems = result);
   }
 
