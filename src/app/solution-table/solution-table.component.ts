@@ -10,6 +10,16 @@ import { ProjectEulerProblem } from '../project-euler-problem';
 })
 export class SolutionTableComponent {
   projectEulerProblems: ProjectEulerProblem[] = [];
+  displayedColumns: string[] = [
+    'problemId', 
+    'title', 
+    'compute', 
+    'solution', 
+    'numberOfTimesComputed', 
+    'fastestComputationTimeInMs', 
+    'slowestComputationTimeInMs', 
+    'lastComputationTimeInMs'
+  ]
   localSolutions: Map<number, number> = new Map<number, number>();
   
   constructor(

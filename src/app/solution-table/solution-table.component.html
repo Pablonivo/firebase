@@ -53,6 +53,6 @@
       <mat-cell *matCellDef="let row"> {{row.lastComputationTimeInMs}} </mat-cell>
     </ng-container>
     
-    <mat-header-row *matHeaderRowDef="['problemId', 'title', 'compute', 'solution', 'numberOfTimesComputed', 'fastestComputationTimeInMs', 'slowestComputationTimeInMs', 'lastComputationTimeInMs']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['problemId', 'title', 'compute', 'solution', 'numberOfTimesComputed', 'fastestComputationTimeInMs', 'slowestComputationTimeInMs', 'lastComputationTimeInMs']"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
