@@ -24,7 +24,7 @@
     <ng-container matColumnDef="compute">
       <mat-header-cell *matHeaderCellDef> Compute </mat-header-cell>
       <mat-cell *matCellDef="let row"> 
-        <button mat-button class="compute-button" (click)="onCompute(row.problemId)"> Click me</button>  
+        <button mat-button class="compute-button" (click)="_onCompute(row.problemId)"> Click me</button>  
       </mat-cell>
     </ng-container>
   

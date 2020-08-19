@@ -9,6 +9,8 @@ import { ProjectEulerManager } from '../project-euler-manager';
 import { ProjectEulerSolutionComputer } from '../project-euler-solution-computer';
 import { ProjectEulerSolutionHelper } from '../project-euler-solution-helper';
 import { SolutionTableComponent } from './solution-table.component';
+import { SolutionTableManager } from './solution-table-manager';
+import { FirestoreService } from './firestore-service';
 
 @NgModule({
     imports: [
@@ -20,6 +22,8 @@ import { SolutionTableComponent } from './solution-table.component';
     exports: [SolutionTableComponent],
     declarations: [SolutionTableComponent],
     providers: [
+        FirestoreService,
+        SolutionTableManager,
         ProjectEulerManager, 
         ProjectEulerSolutionHelper, 
         ProjectEulerSolutionComputer,

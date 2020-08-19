@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { ProjectEulerManager } from '../project-euler-manager';
 import { ProjectEulerProblem } from '../project-euler-problem';
+import { FirestoreService } from './firestore-service';
+import { SolutionTableManager } from './solution-table-manager';
 
 @Component({
   selector: 'solution-table',
@@ -23,30 +23,19 @@ export class SolutionTableComponent implements OnInit {
   localSolutions: Map<number, number> = new Map<number, number>();
 
   constructor(
-    private readonly firestore: AngularFirestore,
-    private readonly projectEulerManager: ProjectEulerManager) {
+    private readonly _firestoreService: FirestoreService,
+    private readonly _solutionTableManager: SolutionTableManager) {
   }
 
   ngOnInit(): void {
-    this.firestore.collection<ProjectEulerProblem>('project-euler-problems', ref => ref.orderBy('problemId')).valueChanges().subscribe(
+    this._firestoreService.getProjectEulerProblemsOrderedById().subscribe(
       result => this.projectEulerProblems = result);
   }
 
-  onCompute(problemId: number): void {
+  _onCompute(problemId: number): void {
     let problemToBeUpdated = this._projectEulerProblemToBeUpdated(problemId);
-    let solutionToProblem = this.projectEulerManager.getSolutionOfProjectEulerProblemById(problemId);
+    let solutionToProblem = this._solutionTableManager.returnSolutionAndUpdateDatabase(problemToBeUpdated);
     this.localSolutions.set(problemId, solutionToProblem);
-
-    let compututationTimeInMsForLastComputation = this.projectEulerManager._numberOfMillisecondsUsedForLastComputation
-
-    this.firestore.collection<ProjectEulerProblem>('project-euler-problems')
-      .doc<ProjectEulerProblem>(`${problemId}`)
-      .update({
-        numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1,
-        fastestComputationTimeInMs: Math.min(compututationTimeInMsForLastComputation, problemToBeUpdated.fastestComputationTimeInMs),
-        slowestComputationTimeInMs: Math.max(compututationTimeInMsForLastComputation, problemToBeUpdated.slowestComputationTimeInMs),
-        lastComputationTimeInMs: compututationTimeInMsForLastComputation
-      });
   }
 
   _solutionIfComputedLocallyNullOtherwise(problemId: number): number | null {
