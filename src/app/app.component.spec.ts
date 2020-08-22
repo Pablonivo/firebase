@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 @Component({
   selector: 'solution-table',
-  template: '<p>Mock Solutio Table Component</p>'
+  template: '<p>Mock Solution Table Component</p>'
 })
 class MockSolutionTableComponent {}
 

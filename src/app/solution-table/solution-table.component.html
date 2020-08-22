@@ -1,58 +1,69 @@
 <h3>
-  Clicking on a problem id will open an extra tab where the problem will be explained. 
+  Clicking on a problem id will open an extra tab where the problem will be explained.
   Click on the "Click me" button to start the computation.
-  The solution will be shown in the solution column, and the "Times computed" column and the "Last" column will be updated accordingly.
+  The solution will be shown in the solution column, and the "Times computed" column and the "Last" column will be
+  updated accordingly.
   Note that watching this page on a smaller screen/phone will only show the most relevant columns.
-  Watching this page on a larger screen will show additonal information regarding the fastest and slowest computation times and include the problem title to look up relevant problems more easily.
+  Watching this page on a larger screen will show additonal information regarding the fastest and slowest computation
+  times and include the problem title to look up relevant problems more easily.
 </h3>
 
-<mat-table [dataSource]="projectEulerProblems" class="mat-elevation-z8">
-    <ng-container matColumnDef="problemId">
-      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-      <mat-cell *matCellDef="let row"> 
-        <a target="_blank" rel="noopener" href="https://projecteuler.net/problem={{row.problemId}}">
-          {{row.problemId}}
-        </a> 
-      </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Title </mat-header-cell>
-      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.title}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="compute">
-      <mat-header-cell *matHeaderCellDef> Compute </mat-header-cell>
-      <mat-cell *matCellDef="let row"> 
-        <button mat-button class="compute-button" (click)="_onCompute(row.problemId)"> Click me</button>  
-      </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="solution">
-      <mat-header-cell *matHeaderCellDef> Solution </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{_solutionIfComputedLocallyNullOtherwise(row.problemId)}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="numberOfTimesComputed">
-      <mat-header-cell *matHeaderCellDef> Times computed </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.numberOfTimesComputed}} </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="fastestComputationTimeInMs">
-      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Fastest (ms) </mat-header-cell>
-      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.fastestComputationTimeInMs}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="slowestComputationTimeInMs">
-      <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Slowest (ms) </mat-header-cell>
-      <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.slowestComputationTimeInMs}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="lastComputationTimeInMs">
-      <mat-header-cell *matHeaderCellDef> Last (ms) </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.lastComputationTimeInMs}} </mat-cell>
-    </ng-container>
-    
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
+<mat-progress-spinner *ngIf="isLoading" class="is-loading-spinner" [mode]="'indeterminate'" [diameter]="100"></mat-progress-spinner>
+
+<mat-table *ngIf="!isLoading" [dataSource]="projectEulerProblems" class="mat-elevation-z8">
+  <ng-container matColumnDef="problemId">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <a target="_blank" rel="noopener" href="https://projecteuler.net/problem={{row.problemId}}">
+        {{row.problemId}}
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Title </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.title}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="compute">
+    <mat-header-cell *matHeaderCellDef> Compute </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button class="compute-button" (click)="_onCompute(row.problemId)"> Click me</button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="solution">
+    <mat-header-cell *matHeaderCellDef> Solution </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div *ngIf="_isRowCurrentlyBeingComputed(row); else doNotShowSpinner">
+        <mat-progress-spinner [mode]="'indeterminate'" [diameter]="15"></mat-progress-spinner>
+      </div>
+      <ng-template #doNotShowSpinner>
+        {{_solutionIfComputedLocallyNullOtherwise(row.problemId)}}
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfTimesComputed">
+    <mat-header-cell *matHeaderCellDef> Times computed </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.numberOfTimesComputed}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fastestComputationTimeInMs">
+    <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Fastest (ms) </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.fastestComputationTimeInMs}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="slowestComputationTimeInMs">
+    <mat-header-cell *matHeaderCellDef class="dont-show-on-mobile"> Slowest (ms) </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="dont-show-on-mobile"> {{row.slowestComputationTimeInMs}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastComputationTimeInMs">
+    <mat-header-cell *matHeaderCellDef> Last (ms) </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.lastComputationTimeInMs}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

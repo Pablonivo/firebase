@@ -7,25 +7,25 @@ import { FirestoreService } from './firestore-service';
 export class SolutionTableManager {
     constructor(
         private readonly _projectEulerManager: ProjectEulerManager,
-        private readonly _firestoreService: FirestoreService)
-    {
-
+        private readonly _firestoreService: FirestoreService) {
     }
 
-    returnSolutionAndUpdateDatabase(problemToBeUpdated: ProjectEulerProblem): number {
+    returnSolutionAndUpdateDatabase(problemToBeUpdated: ProjectEulerProblem): Promise<number> {
         let solutionToProblem = this._projectEulerManager.getSolutionOfProjectEulerProblemById(problemToBeUpdated.problemId);
-        let compututationTimeInMsForLastComputation = this._projectEulerManager._numberOfMillisecondsUsedForLastComputation
+        solutionToProblem.then(() => {
+            let compututationTimeInMsForLastComputation = this._projectEulerManager._numberOfMillisecondsUsedForLastComputation
 
-        let updatedProjectEulerProblem: ProjectEulerProblem = {
-            problemId: problemToBeUpdated.problemId,
-            title: problemToBeUpdated.title,
-            numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1,
-            fastestComputationTimeInMs: Math.min(compututationTimeInMsForLastComputation, problemToBeUpdated.fastestComputationTimeInMs),
-            slowestComputationTimeInMs: Math.max(compututationTimeInMsForLastComputation, problemToBeUpdated.slowestComputationTimeInMs),
-            lastComputationTimeInMs: compututationTimeInMsForLastComputation
-        };
+            let updatedProjectEulerProblem: ProjectEulerProblem = {
+                problemId: problemToBeUpdated.problemId,
+                title: problemToBeUpdated.title,
+                numberOfTimesComputed: problemToBeUpdated.numberOfTimesComputed + 1,
+                fastestComputationTimeInMs: Math.min(compututationTimeInMsForLastComputation, problemToBeUpdated.fastestComputationTimeInMs),
+                slowestComputationTimeInMs: Math.max(compututationTimeInMsForLastComputation, problemToBeUpdated.slowestComputationTimeInMs),
+                lastComputationTimeInMs: compututationTimeInMsForLastComputation
+            };
 
-        this._firestoreService.updateProjectEulerProblemById(problemToBeUpdated.problemId, updatedProjectEulerProblem);
+            this._firestoreService.updateProjectEulerProblemById(problemToBeUpdated.problemId, updatedProjectEulerProblem);
+        })
 
         return solutionToProblem;
     }

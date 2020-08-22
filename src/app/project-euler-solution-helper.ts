@@ -7,7 +7,7 @@ export class ProjectEulerSolutionHelper {
 
     }
 
-    getSolutionOfProblem(problemId: number): number {
+    async getSolutionOfProblem(problemId: number): Promise<number> {
         switch (problemId) {
             case 1:
                 return this._projectEulerSolutionComputer.solutionOfProblem1;

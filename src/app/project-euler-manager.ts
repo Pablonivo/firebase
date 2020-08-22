@@ -11,10 +11,10 @@ export class ProjectEulerManager {
         
     }
     
-    getSolutionOfProjectEulerProblemById(problemId: number): number {
+    getSolutionOfProjectEulerProblemById(problemId: number): Promise<number> {
         this._start();
         let result = this._projectEulerSolutionHelper.getSolutionOfProblem(problemId);
-        this._end();
+        result.then(() => this._end());
         return result;
     }
 

@@ -88,16 +88,19 @@ export class MathHelper {
         return i;
     }
 
-    getPrimesUpTomax(max: number): number[] {
-        let primesList = [];
+    async getPrimesUpTomax(max: number): Promise<number[]> {
+        let worker = new Worker('./get-primes-up-to-max.worker.ts', {type: 'module'});
+        let resultList = [];
 
-        for (let i = 2; i < max; i++) {
-            if (this._isPrime(i)) {
-                primesList.push(i);
+        let promise: Promise<number[]> = new Promise(function(resolve) {
+            worker.onmessage = function(e) {
+                resultList = e.data;
+                resolve(resultList);
             }
-        }
-
-        return primesList;
+            worker.postMessage(max);            
+        });
+        
+        return await promise;
     }
 
     _isPrime(number: number): boolean {

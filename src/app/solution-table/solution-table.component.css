@@ -9,6 +9,10 @@
     white-space: pre-wrap;
 }
 
+.is-loading-spinner {
+    margin: 0 auto;
+}
+
 table{
     width: 50%;
 }
@@ -18,7 +22,17 @@ mat-cell, mat-header-cell{
 
 .mat-column-problemId {
     flex: none;
-    width: 30px;
+    width: 34px;
+}
+
+.mat-column-numberOfTimesComputed {
+    flex: none;
+    width: 60px;
+}
+
+.mat-column-lastComputationTimeInMs {
+    flex: none;
+    width: 60px;
 }
 
 .mat-header-cell {
@@ -34,6 +48,10 @@ mat-cell, mat-header-cell{
 
 mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
     padding-left: 0px;
+}
+
+mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+    padding-right: 0px;
 }
 
 @media only screen and (max-width: 900px) {
