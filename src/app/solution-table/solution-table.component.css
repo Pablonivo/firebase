@@ -13,26 +13,29 @@
 }
 
 .paginator {
-    color: red;
-    background-color: yellow;
+    color: black;
+    font-weight: bolder;
+    background-color: rgba(235, 235, 29, 0.774);
     border: 2px solid black;
 }
 
 .mat-header-row {
-    background-color: yellow;
+    background-color: rgba(235, 235, 29, 0.774);;
 }
 
 .mat-row:nth-child(even){
-    background-color:greenyellow;
+    background-color:rgba(81, 235, 76, 0.637);
     }
 
 .mat-row:nth-child(odd){
-    background-color:violet;
-    }
-
-table{
-    width: 50%;
+    background-color:rgba(17, 163, 17, 0.753);
 }
+
+.mat-header-cell {
+    font-weight: bolder;
+    color: black;
+}
+
 mat-cell, mat-header-cell{
     border: 1px solid black;
 }
@@ -49,7 +52,7 @@ mat-cell, mat-header-cell{
 
 .mat-column-numberOfTimesComputed {
     flex: none;
-    width: 70px;
+    width: 75px;
 }
 
 .mat-column-lastComputationTimeInMs {
@@ -66,11 +69,6 @@ mat-cell, mat-header-cell{
 .mat-cell {
     text-align: center;
     justify-content:center;
-}
-
-.mat-sort-header-container {
-
-    /*  TODO? */
 }
 
 mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
