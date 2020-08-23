@@ -12,6 +12,24 @@
     margin: 0 auto;
 }
 
+.paginator {
+    color: red;
+    background-color: yellow;
+    border: 2px solid black;
+}
+
+.mat-header-row {
+    background-color: yellow;
+}
+
+.mat-row:nth-child(even){
+    background-color:greenyellow;
+    }
+
+.mat-row:nth-child(odd){
+    background-color:violet;
+    }
+
 table{
     width: 50%;
 }
@@ -21,17 +39,22 @@ mat-cell, mat-header-cell{
 
 .mat-column-problemId {
     flex: none;
-    width: 20px;
+    width: 35px;
+}
+
+.mat-column-compute {
+    flex: none;
+    width: 80px;
 }
 
 .mat-column-numberOfTimesComputed {
     flex: none;
-    width: 60px;
+    width: 70px;
 }
 
 .mat-column-lastComputationTimeInMs {
     flex: none;
-    width: 60px;
+    width: 50px;
 }
 
 .mat-header-cell {
@@ -43,6 +66,11 @@ mat-cell, mat-header-cell{
 .mat-cell {
     text-align: center;
     justify-content:center;
+}
+
+.mat-sort-header-container {
+
+    /*  TODO? */
 }
 
 mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {

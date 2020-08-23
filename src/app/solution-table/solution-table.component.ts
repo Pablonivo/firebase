@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ProjectEulerProblem } from '../project-euler-problem';
 import { FirestoreService } from './firestore-service';
 import { SolutionTableManager } from './solution-table-manager';
@@ -10,7 +13,6 @@ import { SolutionTableManager } from './solution-table-manager';
   styleUrls: ['./solution-table.component.css']
 })
 export class SolutionTableComponent implements OnInit {
-  projectEulerProblems: ProjectEulerProblem[] = [];
   displayedColumns: string[] = [
     'problemId',
     'title',
@@ -21,10 +23,22 @@ export class SolutionTableComponent implements OnInit {
     'slowestComputationTimeInMs',
     'lastComputationTimeInMs'
   ]
+  dataSource: MatTableDataSource<ProjectEulerProblem>;
   localSolutions: Map<number, number> = new Map<number, number>();
-  isLoading: boolean = false;
 
+  isLoading: boolean = false;
   problemIdCurrentlyBeingComputed: number = 0;
+
+  @ViewChild(MatPaginator) 
+  set paginator(paginator: MatPaginator) {
+    if (!this.isLoading)
+      this.dataSource.paginator = paginator;
+  }
+  @ViewChild(MatSort)
+  set sort(sort: MatSort) {
+    if (!this.isLoading)
+      this.dataSource.sort = sort;
+  }
 
   constructor(
     private readonly _firestoreService: FirestoreService,
@@ -38,7 +52,7 @@ export class SolutionTableComponent implements OnInit {
 
     this._firestoreService.getProjectEulerProblemsOrderedById().subscribe(
       result => {
-        this.projectEulerProblems = result
+        this.dataSource = new MatTableDataSource(result);
         this.isLoading = false;
         this._changeDetectorRef.markForCheck();
       });
@@ -70,6 +84,6 @@ export class SolutionTableComponent implements OnInit {
   }
 
   private _projectEulerProblemToBeUpdated(problemId: number): ProjectEulerProblem {
-    return this.projectEulerProblems.find(problem => problem.problemId === problemId);
+    return this.dataSource.data.find(problem => problem.problemId === problemId);
   }
 }
