@@ -1,8 +1,9 @@
+import { Constants } from './constants';
 import { MathHelper } from './math-helper';
 import { ProjectEulerSolutionComputer } from "./project-euler-solution-computer";
 
 describe('ProjectEulerSolutionComputer', () => {
-    const _sut = new ProjectEulerSolutionComputer(new MathHelper()); 
+    const _sut = new ProjectEulerSolutionComputer(new MathHelper());
 
     describe('_getSumOfMultiplesOfNumbersBelowMax', () => {
         it('should return sum of the list of the multiples of the numbers below the max parameter', () => {
@@ -44,7 +45,7 @@ describe('ProjectEulerSolutionComputer', () => {
             const result = _sut._getLargestProductOfNAdjacentDigitsOfStringOfNumbers('12345', 2);
             expect(result).toBe(20);
 
-            const result2 = _sut._getLargestProductOfNAdjacentDigitsOfStringOfNumbers(_sut._1000digitStringForProblem8, 4);
+            const result2 = _sut._getLargestProductOfNAdjacentDigitsOfStringOfNumbers(Constants._1000digitStringForProblem8, 4);
             expect(result2).toBe(5832);
         });
     });
@@ -130,7 +131,7 @@ describe('ProjectEulerSolutionComputer', () => {
         });
     });
 
-        // TODO: This test doesn't work yet; worker has different path in test environment.
+    // TODO: This test doesn't work yet; worker has different path in test environment.
     describe('solutionOfProblem10', () => {
         it('should return the correct solution', (done) => {
             const resultProblem10 = _sut.solutionOfProblem10;
@@ -138,6 +139,13 @@ describe('ProjectEulerSolutionComputer', () => {
                 expect(result).toBe(142913828922);
                 done();
             });
+        });
+    });
+
+    describe('solutionOfProblem11', () => {
+        it('should return the correct solution', () => {
+            const resultProblem11 = _sut.solutionOfProblem11;
+            expect(resultProblem11).toBe(70600674);
         });
     });
 });
