@@ -1,19 +1,7 @@
 import { MathHelper } from './math-helper';
-import { async, inject, TestBed } from '@angular/core/testing';
 
 describe('MathHelper', () => {
     const _sut = new MathHelper(); 
-    let sut: MathHelper;
-
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-          providers: [
-            MathHelper
-          ]
-        });
-
-        sut = TestBed.get(MathHelper);
-      });
 
     describe('getMultiplesOfNumberBelowMax', () => {
         it('should return a list of the multiples of the number below the max parameter', () => {
@@ -97,15 +85,5 @@ describe('MathHelper', () => {
         it('should return false if the triplet provided is not a Pythagorean triplet', () => {
             expect(_sut._isPythagoreanTriplet(3, 4, 6)).toBeFalse();
         });
-    });
-
-    // TODO: This test and async tests in other files are not running correctly and need to be fixed
-    describe('getPrimesUpTomax', () => {
-        it('should return a list of the primes up to the max parameter', 
-            async(done) => {
-                const result = await sut.getPrimesUpTomax(10);
-                expect(result).toEqual([2, 3, 5, 7]);
-                done();
-            })
     });
 });

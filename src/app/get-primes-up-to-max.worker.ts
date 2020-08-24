@@ -13,8 +13,8 @@ onmessage = function(event) {
   postMessage(primesList);
 }
 
-function _isPrime(number: number): boolean {
-  if ((number === 2 || number === 3)) {
+function _isPrime(number) {
+  if (number === 2 || number === 3) {
     return true;
   }
 

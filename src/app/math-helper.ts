@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { WorkerFactory } from './worker-factory';
 
 @Injectable()
 export class MathHelper {
@@ -89,7 +90,7 @@ export class MathHelper {
     }
 
     async getPrimesUpTomax(max: number): Promise<number[]> {
-        let worker = new Worker('./get-primes-up-to-max.worker.ts', {type: 'module'});
+        let worker = WorkerFactory.createWorker();
         let resultList = [];
 
         let promise: Promise<number[]> = new Promise(function(resolve) {

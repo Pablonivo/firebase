@@ -20,6 +20,10 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+    files: ['src/app/get-primes-up-to-max.worker.ts'],
+    mime: {
+      'text/x-typescript': ['ts']
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

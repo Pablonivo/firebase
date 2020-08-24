@@ -1,5 +1,5 @@
-import { ProjectEulerSolutionComputer } from "./project-euler-solution-computer";
 import { MathHelper } from './math-helper';
+import { ProjectEulerSolutionComputer } from "./project-euler-solution-computer";
 
 describe('ProjectEulerSolutionComputer', () => {
     const _sut = new ProjectEulerSolutionComputer(new MathHelper()); 
@@ -56,11 +56,13 @@ describe('ProjectEulerSolutionComputer', () => {
         });
     });
 
+    // TODO: This test doesn't work yet; worker has different path in test environment.
     describe('_getSumOfPrimesUpToMax', () => {
-        it('should return the sum of the primes up to the max parameter', async() => {
+        it('should return the sum of the primes up to the max parameter', (done) => {
             const result = _sut._getSumOfPrimesUpToMax(10);
             result.then(number => {
                 expect(number).toBe(17);
+                done();
             });
         });
     });
@@ -128,12 +130,13 @@ describe('ProjectEulerSolutionComputer', () => {
         });
     });
 
-    // TODO: This test is not running correctly
+        // TODO: This test doesn't work yet; worker has different path in test environment.
     describe('solutionOfProblem10', () => {
-        it('should return the correct solution', async() => {
+        it('should return the correct solution', (done) => {
             const resultProblem10 = _sut.solutionOfProblem10;
             resultProblem10.then(result => {
                 expect(result).toBe(142913828922);
+                done();
             });
         });
     });

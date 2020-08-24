@@ -1,16 +1,14 @@
-// TODO: Get this file working, or remove it alltogether. 
-
-
 describe('worker', () => {
     let worker: Worker;
 
     beforeEach(() => {
-        worker = new Worker('get-primes-up-to-max.worker.ts', {type: 'module'});
+        worker = new Worker('base/src/app/get-primes-up-to-max.worker.ts', { type: 'module' });
     });
 
-    it('testtttttt', () => {
+    it('should return a list of the primes up to the max parameter', (done) => {
         worker.onmessage = function(result) {
-            expect(result.data).toBe([2, 3, 5, 6]); //Niet 6 maar 7
+            expect(result.data).toEqual([2, 3, 5, 7]);
+            done();
         }
 
         worker.postMessage(10);
