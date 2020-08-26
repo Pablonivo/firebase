@@ -31,6 +31,8 @@ export class ProjectEulerSolutionHelper {
                 return this._projectEulerSolutionComputer.solutionOfProblem10;
             case 11:
                 return this._projectEulerSolutionComputer.solutionOfProblem11;
+            case 12:
+                return this._projectEulerSolutionComputer.solutionOfProblem12;
 
             default:
                 return 0;

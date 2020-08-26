@@ -89,6 +89,23 @@ export class MathHelper {
         return i;
     }
 
+    getSortedListOfDivisorsOfNumber(n: number): number[] {
+        let divisors: number[] = [1, n];
+
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) {
+                divisors.push(i);
+                divisors.push(n/i);
+            }
+        }
+
+        return [...new Set(divisors)].sort((a, b) => a - b);
+    }
+
+    getNthTriangleNumber(n: number): number {
+        return n * (n + 1) / 2;
+    }
+
     async getPrimesUpTomax(max: number): Promise<number[]> {
         let worker = WorkerFactory.createWorker();
         let resultList = [];

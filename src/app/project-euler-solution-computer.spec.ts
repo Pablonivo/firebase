@@ -68,6 +68,13 @@ describe('ProjectEulerSolutionComputer', () => {
         });
     });
 
+    describe('_getFirstTriangleNumberWhichHasAtLeastNDivisors', () => {
+        it('should return the first triangle number which has a least n divisors', () => {
+            const result = _sut._getFirstTriangleNumberWhichHasAtLeastNDivisors(6);
+            expect(result).toBe(28);
+        });
+    });
+
     describe('solutionOfProblem1', () => {
         it('should return the correct solution', () => {
             const resultProblem1 = _sut.solutionOfProblem1;
@@ -146,6 +153,13 @@ describe('ProjectEulerSolutionComputer', () => {
         it('should return the correct solution', () => {
             const resultProblem11 = _sut.solutionOfProblem11;
             expect(resultProblem11).toBe(70600674);
+        });
+    });
+
+    describe('solutionOfProblem12', () => {
+        it('should return the correct solution', () => {
+            const resultProblem12 = _sut.solutionOfProblem12;
+            expect(resultProblem12).toBe(76576500);
         });
     });
 });

@@ -86,4 +86,16 @@ describe('MathHelper', () => {
             expect(_sut._isPythagoreanTriplet(3, 4, 6)).toBeFalse();
         });
     });
+
+    describe('getSortedListOfDivisorsOfNumber', () => {
+        it('should return [1, 2, 4, 7, 14, 28] if the number is 28', () => {
+            expect(_sut.getSortedListOfDivisorsOfNumber(28)).toEqual([1, 2, 4, 7, 14, 28]);
+        });
+    });
+
+    describe('getNthTriangleNumber', () => {
+        it('should return 28 if the number is 7', () => {
+            expect(_sut.getNthTriangleNumber(7)).toEqual(28);
+        });
+    });
 });

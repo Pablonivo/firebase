@@ -54,6 +54,10 @@ export class ProjectEulerSolutionComputer {
         return this._getLargestProductInGrid(4, Constants._gridOfNumbersForProblem11, 20);
     }
 
+    get solutionOfProblem12(): number {
+        return this._getFirstTriangleNumberWhichHasAtLeastNDivisors(501);
+    }
+
     _getSumOfMultiplesOfNumbersBelowMax(numbers: number[], max: number): number {
         var multiplesList = [];
 
@@ -113,7 +117,7 @@ export class ProjectEulerSolutionComputer {
     }
 
     _getSquareOfSumOfFirstNaturalNumbers(limit: number) {
-        let sum = limit * (limit + 1) / 2;
+        let sum = this._mathHelper.getNthTriangleNumber(limit);
         return sum * sum;
     }
 
@@ -213,6 +217,22 @@ export class ProjectEulerSolutionComputer {
         }
 
         return largestProductFound;
+    }
+
+    _getFirstTriangleNumberWhichHasAtLeastNDivisors(requiredNumberOfDivisors: number) {
+        let n = 1;
+        let foundTriangleNumberWhichAsAtLeastNDivisors = false;
+
+        while (foundTriangleNumberWhichAsAtLeastNDivisors == false) {
+            let nthTriangleNumber = this._mathHelper.getNthTriangleNumber(n);
+            let numberOfDivisors = this._mathHelper.getSortedListOfDivisorsOfNumber(nthTriangleNumber).length;
+
+            if (numberOfDivisors >= requiredNumberOfDivisors) {
+                return nthTriangleNumber;
+            }
+
+            n++;
+        }
     }
 
     async _getSumOfPrimesUpToMax(max: number): Promise<number> {
